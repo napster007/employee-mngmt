@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom"; 
+import { Redirect, Switch, Route, Link, BrowserRouter as Router } from "react-router-dom"; 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -73,6 +73,7 @@ export default function SelectedListItem() {
                       userDetails.innerHTML = "Welcome " + user.email;
               } else {
                 // No user is signed in.
+                <Redirect to={"/signin"} />
               }
             })
 }
