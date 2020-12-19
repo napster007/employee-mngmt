@@ -17,6 +17,7 @@ import AddEmployee from "./components/addEmployee";
 import EmployeeList from "./components/employeeList";
 import auth from './Authentication';
 import app from "./firebase.js";
+import render from 'react-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,8 @@ export default function SelectedListItem() {
     setSelectedIndex(index);
   };
 
+  let uId = "hello";
+  let myGlobalVariable=[];
   return (
     <div className={classes.root}>
         <AppBar position="static" component="nav">
@@ -67,15 +70,19 @@ export default function SelectedListItem() {
                         const html = `
                         <div> ${user.emal}</div>
                         `;
-                      
-                      console.log(user.email);
+                       /*  console.log(user.uid); */
+                       window.myGlobalVariable = user.uid;
 
                       userDetails.innerHTML = "Welcome " + user.email;
               } else {
                 // No user is signed in.
                 <Redirect to={"/signin"} />
               }
-            })
+            }
+           
+            )
+
+           
 }
            
           </Typography>
@@ -115,6 +122,44 @@ export default function SelectedListItem() {
           <ListItemText primary="Employee List" />
           </Link>
         </ListItem>
+
+        <ListItem
+          button
+          selected={selectedIndex === 2}
+          onClick={(event) => handleListItemClick(event, 2)}
+
+          id="linkss"
+        >
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
+          {app.auth().onAuthStateChanged(function(user) {
+            
+            if (user) {
+                        // User is signed in.
+                        
+                       
+                          
+                       
+                
+                       const routes = (
+                        <Link  to={"/account/"+ user.uid} className="nav-link">
+                          <ListItemText primary="Account" />
+                        </Link>);
+                      
+                      render(routes, document.getElementById('linkss'));
+                    
+              } else {
+                // No user is signed in.
+                <Redirect to={"/signin"} />
+              }
+            }
+           
+            )
+         
+           }
+        
+        </ListItem>
       </List>
 
         <hr />
@@ -131,6 +176,10 @@ export default function SelectedListItem() {
             <EmployeeList />
           </Route>
           <Route path="/add-employee" exact component={AddEmployee}>
+            <AddEmployee />
+          </Route>
+
+          <Route path="/account/:id" exact component={AddEmployee}>
             <AddEmployee />
           </Route>
          
