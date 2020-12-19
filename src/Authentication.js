@@ -4,15 +4,20 @@ export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [pending, setPending] = useState(true);
+
+  
   useEffect(() => {
     //if user is loged in
     app.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user)
-      setPending(false)
+      setCurrentUser(user);
+      setPending(false);
+
+    
     });
   }, []);
   if(pending){
     return <>Please wait...</>
+    
   }
   return (
     <AuthContext.Provider
@@ -21,7 +26,11 @@ export const AuthProvider = ({ children }) => {
       }}
     >
       {children}
+      
+  
     </AuthContext.Provider>
+
+      
   );
 };
 

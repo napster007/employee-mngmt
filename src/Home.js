@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import PeopleIcon from '@material-ui/icons/People';
 import AddEmployee from "./components/addEmployee";
 import EmployeeList from "./components/employeeList";
+import auth from './Authentication';
 import app from "./firebase.js";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,25 @@ export default function SelectedListItem() {
          
          
           <Typography variant="h6" className={classes.title}>
-            Welcome, User
+          <div className="welcome-tag"> </div>
+
+          {app.auth().onAuthStateChanged(function(user) {
+            const userDetails = document.querySelector('.welcome-tag');
+            if (user) {
+                        // User is signed in.
+                        const html = `
+                        <div> ${user.emal}</div>
+                        `;
+                      
+                      console.log(user.email);
+
+                      userDetails.innerHTML = "Welcome " + user.email;
+              } else {
+                // No user is signed in.
+              }
+            })
+}
+           
           </Typography>
          
 
