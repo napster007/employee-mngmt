@@ -41,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+ 
+
 export default function SelectedListItem() {
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -49,8 +51,7 @@ export default function SelectedListItem() {
     setSelectedIndex(index);
   };
 
-  let uId = "hello";
-  let myGlobalVariable=[];
+
   return (
     <div className={classes.root}>
         <AppBar position="static" component="nav">
@@ -63,27 +64,25 @@ export default function SelectedListItem() {
           <Typography variant="h6" className={classes.title}>
           <div className="welcome-tag"> </div>
 
-          {app.auth().onAuthStateChanged(function(user) {
-            const userDetails = document.querySelector('.welcome-tag');
-            if (user) {
-                        // User is signed in.
-                        const html = `
-                        <div> ${user.emal}</div>
-                        `;
-                       /*  console.log(user.uid); */
-                       window.myGlobalVariable = user.uid;
+          {
+            app.auth().onAuthStateChanged(function(user) {
+              const userDetails = document.querySelector('.welcome-tag');
+                if (user) {
+                            // User is signed in.
+                            const html = `
+                            <div> ${user.emal}</div>
+                            `;
+                          /*  console.log(user.uid); */
+                          window.myGlobalVariable = user.uid;
 
-                      userDetails.innerHTML = "Welcome " + user.email;
-              } else {
-                // No user is signed in.
-                <Redirect to={"/signin"} />
+                          userDetails.innerHTML = "Welcome " + user.email;
+                  } else {
+                    // No user is signed in.
+                    <Redirect to={"/signin"} />
+                  }
               }
-            }
-           
-            )
-
-           
-}
+            ) 
+          }
            
           </Typography>
          
@@ -133,32 +132,14 @@ export default function SelectedListItem() {
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
-          {app.auth().onAuthStateChanged(function(user) {
-            
-            if (user) {
-                        // User is signed in.
-                        
-                       
-                          
-                       
-                
-                       const routes = (
-                        <Link  to={"/account/"+ user.uid} className="nav-link">
-                          <ListItemText primary="Account" />
-                        </Link>);
-                      
-                      render(routes, document.getElementById('linkss'));
-                    
-              } else {
-                // No user is signed in.
-                <Redirect to={"/signin"} />
-              }
-            }
-           
-            )
-         
-           }
+
+          
         
+            
+
+          <Link  to={"/account/"+ auth.userId} className="nav-link">
+            <ListItemText primary="Account" />
+          </Link>
         </ListItem>
       </List>
 

@@ -11,10 +11,12 @@ export const AuthProvider = ({ children }) => {
     app.auth().onAuthStateChanged((user) => {
       setCurrentUser(user);
       setPending(false);
+      this.setState({ userId: user.uid});
 
     
     });
   }, []);
+
   if(pending){
     return <>Please wait...</>
     
